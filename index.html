@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A beautiful standalone HTML website">
+<title>Rohit — Creative Developer</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #172033;
+        background: #f7f8fc;
+        line-height: 1.6;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .container {
+        width: min(1120px, 92%);
+        margin: 0 auto;
+    }
+
+    /* Navigation */
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(23, 32, 51, 0.08);
+    }
+
+    .nav {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo {
+        font-size: 1.45rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .logo span {
+        color: #635bff;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+        color: #5f687a;
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+
+    .nav-links a {
+        transition: color 0.25s ease;
+    }
+
+    .nav-links a:hover {
+        color: #635bff;
+    }
+
+    /* Hero */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding: 120px 0 80px;
+        background:
+            radial-gradient(circle at 15% 20%, rgba(99, 91, 255, 0.16), transparent 30%),
+            radial-gradient(circle at 85% 75%, rgba(16, 185, 129, 0.12), transparent 28%),
+            #f7f8fc;
+    }
+
+    .hero::before {
+        content: "";
+        position: absolute;
+        width: 380px;
+        height: 380px;
+        border-radius: 50%;
+        background: rgba(99, 91, 255, 0.08);
+        top: -180px;
+        right: -120px;
+        filter: blur(5px);
+    }
+
+    .hero-content {
+        position: relative;
+        max-width: 780px;
+        animation: appear 0.8s ease-out both;
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: #ffffff;
+        border: 1px solid #e6e8ef;
+        color: #635bff;
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin-bottom: 24px;
+        box-shadow: 0 8px 25px rgba(23, 32, 51, 0.06);
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        background: #22c55e;
+        border-radius: 50%;
+    }
+
+    h1 {
+        font-size: clamp(3rem, 8vw, 6.5rem);
+        line-height: 0.98;
+        letter-spacing: -5px;
+        margin-bottom: 26px;
+        max-width: 850px;
+    }
+
+    h1 span {
+        color: #635bff;
+    }
+
+    .hero-text {
+        max-width: 650px;
+        color: #697386;
+        font-size: clamp(1.05rem, 2vw, 1.25rem);
+        margin-bottom: 34px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 22px;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .button:hover {
+        transform: translateY(-3px);
+    }
+
+    .primary {
+        color: white;
+        background: #635bff;
+        box-shadow: 0 12px 28px rgba(99, 91, 255, 0.28);
+    }
+
+    .primary:hover {
+        background: #5149e8;
+        box-shadow: 0 16px 34px rgba(99, 91, 255, 0.34);
+    }
+
+    .secondary {
+        background: white;
+        border: 1px solid #dfe2ea;
+        color: #31394b;
+    }
+
+    .secondary:hover {
+        box-shadow: 0 10px 24px rgba(23, 32, 51, 0.08);
+    }
+
+    /* Features */
+    section {
+        padding: 100px 0;
+    }
+
+    .section-heading {
+        max-width: 650px;
+        margin-bottom: 45px;
+    }
+
+    .eyebrow {
+        color: #635bff;
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        line-height: 1.1;
+        letter-spacing: -1.5px;
+        margin-bottom: 14px;
+    }
+
+    .section-heading p {
+        color: #697386;
+        font-size: 1.05rem;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .card {
+        background: #ffffff;
+        border: 1px solid #e7e9f0;
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 10px 35px rgba(23, 32, 51, 0.05);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 45px rgba(23, 32, 51, 0.1);
+    }
+
+    .icon {
+        width: 52px;
+        height: 52px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        background: #f0efff;
+        color: #635bff;
+        font-size: 1.4rem;
+        margin-bottom: 22px;
+    }
+
+    .card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        color: #697386;
+    }
+
+    /* About */
+    .about {
+        background: #172033;
+        color: white;
+    }
+
+    .about .section-heading p {
+        color: #aeb6c6;
+    }
+
+    .about-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+
+    .about-item {
+        padding: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .about-item strong {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+    }
+
+    .about-item span {
+        color: #aeb6c6;
+    }
+
+    /* Footer */
+    footer {
+        padding: 28px 0;
+        background: #101622;
+        color: #8993a6;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    footer span {
+        color: #ffffff;
+    }
+
+    /* Animation */
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+        .nav-links {
+            display: none;
+        }
+
+        .cards,
+        .about-box {
+            grid-template-columns: 1fr;
+        }
+
+        h1 {
+            letter-spacing: -3px;
+        }
+
+        section {
+            padding: 75px 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero {
+            padding-top: 110px;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+        }
+
+        .button {
+            width: 100%;
+        }
+
+        .card {
+            padding: 26px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="#home" class="logo">Rohit<span>.</span></a>
+
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+
+                <div class="badge">
+                    <span class="dot"></span>
+                    Welcome to my website
+                </div>
+
+                <h1>
+                    Build ideas.<br>
+                    Make them <span>beautiful.</span>
+                </h1>
+
+                <p class="hero-text">
+                    A clean, modern and responsive website built with
+                    pure HTML and CSS. No frameworks. No dependencies.
+                    Just simple frontend development.
+                </p>
+
+                <div class="buttons">
+                    <a href="#features" class="button primary">Explore Website →</a>
+                    <a href="#about" class="button secondary">Learn More</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+
+            <div class="section-heading">
+                <div class="eyebrow">Why this design?</div>
+                <h2>Simple code. Great experience.</h2>
+                <p>
+                    Good frontend development is not about writing
+                    complicated code. It is about creating a clear,
+                    useful and enjoyable experience.
+                </p>
+            </div>
+
+            <div class="cards">
+
+                <article class="card">
+                    <div class="icon">⚡</div>
+                    <h3>Fast</h3>
+                    <p>
+                        No external frameworks or libraries.
+                        The page loads quickly and works offline.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="icon">✦</div>
+                    <h3>Beautiful</h3>
+                    <p>
+                        Modern spacing, typography, shadows,
+                        gradients and subtle animations.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="icon">⌁</div>
+                    <h3>Responsive</h3>
+                    <p>
+                        The layout automatically adapts to
+                        desktops, tablets and mobile screens.
+                    </p>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+
+            <div class="section-heading">
+                <div class="eyebrow">About</div>
+                <h2>Built from scratch.</h2>
+                <p>
+                    Everything you see on this page is contained
+                    inside this single HTML file.
+                </p>
+            </div>
+
+            <div class="about-box">
+
+                <div class="about-item">
+                    <strong>HTML</strong>
+                    <span>Structure and content</span>
+                </div>
+
+                <div class="about-item">
+                    <strong>CSS</strong>
+                    <span>Design, layout and animations</span>
+                </div>
+
+                <div class="about-item">
+                    <strong>100%</strong>
+                    <span>Standalone and dependency-free</span>
+                </div>
+
+                <div class="about-item">
+                    <strong>Responsive</strong>
+                    <span>Desktop, tablet and mobile ready</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="container">
+        © 2026 <span>Rohit</span>. Built with HTML & CSS.
+    </div>
+</footer>
+
+</body>
+</html>
